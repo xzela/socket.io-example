@@ -23,11 +23,15 @@
 	<script>
 	  var socket = io();
 	  $('form').submit(function() {
+		// emit a 'chatmessage' when the user submits
+		// a chat message
 		socket.emit('chatmessage', $('#m').val());
 			$('#m').val('');
 			return false;
 		});
+		// listen for the 'chatmessage' event
 		socket.on('chatmessage', function (msg) {
+			// add the message to the list
 			$('#messages').append($('<li>').text(msg));
 		});
 	</script>
