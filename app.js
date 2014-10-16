@@ -18,5 +18,13 @@ app.get('/', function (req, res) {
 });
 
 io.on('connection', function (socket) {
-	console.log('connection made');
+	console.log('socket:', socket.id, 'has connected');
+	// console.log();
+	socket.on('chatmessage', function (msg) {
+		console.log('socket:', socket.id, 'sez:', msg);
+		io.emit('chatmessage', msg);
+	});
+	socket.on('disconnect', function () {
+		console.log('socket:', socket.id, 'has disconnected');
+	})
 });
